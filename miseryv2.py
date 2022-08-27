@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import base64
 import math
 from typing import List, Set, Tuple, Dict, Optional, Union
 
@@ -46,7 +47,7 @@ class Firestore:
 	"""
 	
 	def __init__(self):
-		self.json = os.getenv("FIRESTORE")
+		self.json = base64.urlsafe_b64decode(os.getenv("FIRESTORE") + "==").decode("utf-8")
 		self.startup = self.firestoreStartup
 		self.service = None
 	
