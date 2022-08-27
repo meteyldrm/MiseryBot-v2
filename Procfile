@@ -1,1 +1,0 @@
-worker: python miserytest/miseryv2.py
