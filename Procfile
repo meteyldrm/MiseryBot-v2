@@ -1,0 +1,1 @@
+worker: python miseryv2.py
