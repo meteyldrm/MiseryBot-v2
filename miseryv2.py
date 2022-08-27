@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import math
 from typing import List, Set, Tuple, Dict, Optional, Union
 
@@ -50,7 +51,8 @@ class Firestore:
 		self.service = None
 	
 	def firestoreStartup(self):
-		cred = credentials.Certificate(self.json)
+		js = json.loads(self.json)
+		cred = credentials.Certificate(js)
 		firebase_admin.initialize_app(cred)
 		self.service = firestore.client()
 		print("Firestore startup")
