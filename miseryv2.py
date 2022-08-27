@@ -109,6 +109,8 @@ mc = Memcachier().startup()
 fs = Firestore().startup()
 dc = Discord().startup()
 
+dc.service.run(dc.oauth)
+
 
 @dc.service.event
 async def on_ready():
