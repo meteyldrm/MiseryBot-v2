@@ -1,1 +1,1 @@
-worker: python miserytest/MiseryBot-v2/miseryv2.py
+worker: python miserytest/miseryv2.py
