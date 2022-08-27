@@ -95,7 +95,7 @@ class DataPartition:
 
 mc = Memcachier().startup()
 fs = Firestore().startup()
-client = nextcord.Client()
+client = nextcord.Client(intents=nextcord.Intents.all())
 oauth = os.getenv("MISERYBOT_OAUTH_KEY")
 
 
@@ -109,9 +109,10 @@ async def on_message(message: nextcord.Message):
 	if message.author == client.user:
 		return
 	
+	msg = str(message.content).lstrip().rstrip()
 	_msg_channel = str(message.channel.id)
 	
-	print(f"Channel: {message.channel.id} Author: {message.author.name} ID: {message.author.id} Message: {message.content}\n")
+	print(f"Channel: {message.channel.id} Author: {message.author.name} ID: {message.author.id} Message: {msg}\n")
 	if message.content == "ping":
 		await message.channel.send("pong")
 
