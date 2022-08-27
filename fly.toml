@@ -1,0 +1,5 @@
+# fly.toml file generated for miserytest on 2022-08-28T01:11:16+03:00
+
+app = "miserytest"
+kill_signal = "SIGINT"
+kill_timeout = 5

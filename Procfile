@@ -1,1 +1,1 @@
-worker: python miseryv2.py
+worker: python miserybotv2.py
