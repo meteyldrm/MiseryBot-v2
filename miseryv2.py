@@ -65,18 +65,6 @@ class Firestore:
 		pass
 
 
-class Discord:
-	def __init__(self):
-		self.oauth = os.getenv("MISERYBOT_OAUTH_KEY")
-		self.startup = self.discordStartup
-		self.service = None
-	
-	def discordStartup(self):
-		self.service = nextcord.Client()
-		print("Discord startup")
-		return self
-
-
 class DataPartition:
 	@staticmethod
 	def assemble(data: dict) -> bytearray:
@@ -107,19 +95,18 @@ class DataPartition:
 
 mc = Memcachier().startup()
 fs = Firestore().startup()
-dc = Discord().startup()
+client = nextcord.Client()
+oauth = os.getenv("MISERYBOT_OAUTH_KEY")
 
-dc.service.run(dc.oauth)
 
-
-@dc.service.event
+@client.event
 async def on_ready():
-	print('We have logged in as {0.user}'.format(dc.service))
+	print('We have logged in as {0.user}'.format(client))
 
 
-@dc.service.event
+@client.event
 async def on_message(message: nextcord.Message):
-	if message.author == dc.service.user:
+	if message.author == client.user:
 		return
 	
 	_msg_channel = str(message.channel.id)
@@ -128,3 +115,4 @@ async def on_message(message: nextcord.Message):
 	if message.content == "ping":
 		await message.channel.send("pong")
 
+client.run(oauth)
