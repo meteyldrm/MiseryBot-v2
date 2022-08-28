@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 
 COPY . /miserytest
 
-CMD python miseryv2.py
+CMD python /miserytest/miseryv2.py
