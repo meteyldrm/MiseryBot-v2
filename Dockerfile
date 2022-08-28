@@ -9,11 +9,11 @@ RUN apt-get update && apt-get install -y \
     python3-setuptools \
     python3-wheel
 
-WORKDIR /app
+WORKDIR /miserytest
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD python miserytest/miseryv2.py
+CMD python miseryv2.py
