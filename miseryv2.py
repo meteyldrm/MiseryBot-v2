@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import signal
 import base64
 import math
 from typing import List, Set, Tuple, Dict, Optional, Union
@@ -119,5 +120,6 @@ async def on_message(message: nextcord.Message):
 	if message.content == "misery shutdown" and message.author.id == 295951409239556096:
 		await message.channel.send("Shutting down")
 		await client.close()
+		signal.raise_signal(signal.SIGINT)
 
 client.run(oauth)
