@@ -14,6 +14,6 @@ WORKDIR /miserytest
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY . /miserytest
 
 CMD python miseryv2.py
