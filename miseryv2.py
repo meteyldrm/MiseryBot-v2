@@ -113,11 +113,11 @@ async def on_message(message: nextcord.Message):
 	msg = str(message.content).lstrip().rstrip()
 	_msg_channel = str(message.channel.id)
 	
-	print(f"Channel: {message.channel.id} Author: {message.author.name} ID: {message.author.id} Message: {msg}\n")
 	if message.content == "ping":
 		await message.channel.send("pong")
 	
-	if message.content == "pong" and message.author.id == 295951409239556096:
-		await message.channel.send("https://tenor.com/view/cheems-bonk-doge-celestev69-gif-24399197")
+	if message.content == "misery shutdown" and message.author.id == 295951409239556096:
+		await message.channel.send("Shutting down")
+		await client.close()
 
 client.run(oauth)
