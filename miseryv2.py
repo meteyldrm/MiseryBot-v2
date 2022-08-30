@@ -127,7 +127,7 @@ class MiseryBot:
 			bot_instance.config["dispatch_deploy_endpoint"] = fs.read("Misery/Config%dispatch_deploy_endpoint")
 			token = os.getenv("DISPATCH_DEPLOY")
 			bot_instance.config["dispatch_deploy_header"] = {"Accept": "application/vnd.github.everest-preview+json", "Authorization": f"token {token}"}
-			bot_instance.config["dispatch_deploy_data"] = {"event_type": "deploy"}
+			bot_instance.config["dispatch_deploy_data"] = {"event_type": "workflow_dispatch"}
 		
 		dispatch_deploy_startup(self, self.config["Firestore"])
 		return self
@@ -161,9 +161,9 @@ def main():
 			await client.close()
 			signal.raise_signal(signal.SIGINT)
 		
-		if message.content == "misery dispatch deploy":
-			misery.dispatch_deploy()
-			await message.channel.send("Deploy request sent")
+		# if message.content == "misery dispatch deploy": I have no idea what's wrong with this
+		# 	misery.dispatch_deploy()
+		# 	await message.channel.send("Deploy request sent")
 	
 	client.run(oauth)
 
