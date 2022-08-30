@@ -15,6 +15,11 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
+deployed = False
+if not deployed:
+	from dotenv import load_dotenv
+	load_dotenv("C:/MiseryBot_v2_Data/.env")
+
 
 class Memcachier:
 	def __init__(self):
@@ -30,11 +35,11 @@ class Memcachier:
 		print("Memcachier startup")
 		return self
 	
-	async def read(self, key):
+	def read(self, key):
 		# noinspection PyTypeChecker
 		self.service.get(self.service, key)
 	
-	async def write(self, key, value):
+	def write(self, key, value):
 		# noinspection PyTypeChecker
 		self.service.set(self.service, key, value)
 
@@ -65,21 +70,21 @@ class Firestore:
 		print("Firestore startup")
 		return self
 	
-	async def read(self, key):
-		rkey = key.split("%")[0]
-		document = self.service.document(rkey).get()
+	def read(self, key):
+		rkey = key.split("%")
+		document = self.service.document(rkey[0]).get()
 		if "%" in key:
 			return document.to_dict()[rkey[1]]
 		return document.to_dict()
 	
-	async def write(self, key, value, *, merge = True):
+	def write(self, key, value, *, merge = True):
 		"""write('Misery/Config%test_key', 'test_value') -> write('Misery/Config', {'test_key': 'test_value'})"""
-		rkey = key.split("%")[0]
+		rkey = key.split("%")
 		if "%" in key:
 			data = {rkey[1]: value}
 		else:
 			data = value
-		self.service.document(key).set(document_data = data, merge = merge)
+		self.service.document(key[0]).set(document_data = data, merge = merge)
 
 
 class DataPartition:
@@ -128,7 +133,8 @@ class MiseryBot:
 		return self
 	
 	def dispatch_deploy(self):
-		requests.post(self.config["dispatch_deploy_endpoint"], headers = self.config["dispatch_deploy_header"], json = self.config["dispatch_deploy_data"])
+		resp = requests.post(self.config["dispatch_deploy_endpoint"], headers = self.config["dispatch_deploy_header"], json = self.config["dispatch_deploy_data"])
+		print(resp)
 	
 	
 def main():
